@@ -6,6 +6,7 @@ let mapleader = "\<Space>"
 " =========================================================
 set nocompatible
 filetype off
+set rtp+=~/Downloads/base16-vim/templates/
 call plug#begin()
 
 " Load plugins
@@ -35,6 +36,7 @@ Plug 'hrsh7th/nvim-cmp', {'branch': 'main'}
 Plug 'ray-x/lsp_signature.nvim'
 
 " Syntactic language support
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'stephpy/vim-yaml'
 Plug 'rust-lang/rust.vim'
 Plug 'rhysd/vim-clang-format'
@@ -74,6 +76,16 @@ call Base16hi("LspSignatureActiveParameter", g:base16_gui05, g:base16_gui03, g:b
 " them less glaring. But alas
 " https://github.com/nvim-lua/lsp_extensions.nvim/issues/21
 " call Base16hi("CocHintSign", g:base16_gui03, "", g:base16_cterm03, "", "", "")
+
+" Treesitter configuration
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+    -- Modules and its options go here
+    highlight = { enable = true },
+    incremental_selection = { enable = true },
+    textobjects = { enable = true },
+  }
+EOF
 
 " LSP configuration
 lua << END
@@ -146,6 +158,7 @@ local on_attach = function(client, bufnr)
 end
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+lspconfig.gopls.setup{}
 lspconfig.rust_analyzer.setup {
   on_attach = on_attach,
   flags = {
@@ -239,6 +252,15 @@ function! LightlineFilename()
   return expand('%:t') !=# '' ? @% : '[No Name]'
 endfunction
 
+" from http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+if executable('ag')
+	set grepprg=ag\ --nogroup\ --nocolor
+endif
+if executable('rg')
+	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepformat=%f:%l:%c:%m
+endif
+
 " Editor Settings
 filetype plugin indent on
 set autoindent
@@ -257,7 +279,7 @@ set printfont=:h10
 set printencoding=utf-8
 set printoptions=paper:letter
 " Always draw sign column. Prevent buffer moving when adding/deleting sign.
-" set signcolumn=yes
+set signcolumn=yes
 
 " Sane splits
 set splitright
@@ -335,6 +357,9 @@ set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 " Jump to start and end of line using the home row keys
 map H ^
 map L $
+
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
 
 " <leader>s for Rg search
 noremap <leader>s :Rg

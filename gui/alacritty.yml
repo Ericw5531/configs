@@ -15,16 +15,16 @@ window:
 
 font:
   normal:
-    family: Source Code Pro
+    family: "Noto Sans Mono" 
 
   bold:
-    family: Source Code Pro
+    family: "Noto Sans Mono" 
 
   italic:
-    family: Source Code Pro
+    family: "Noto Sans Mono" 
 
   bold_italic:
-    family: Source Code Pro
+    family: "Noto Sans Mono" 
 
   size: 10 
 
