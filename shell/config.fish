@@ -1,9 +1,23 @@
+abbr -a vim nvim
+abbr -a vimdiff 'nvim -d'
+abbr -a c cargo
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
 function fish_greeting
     echo lmao
+end
+
+if command -v exa > /dev/null
+	abbr -a l 'exa'
+	abbr -a ls 'exa -la'
+	abbr -a ll 'exa'
+else
+    abbr -a l 'ls'
+	abbr -a ls 'ls -la'
+	abbr -a ll 'ls'
 end
 
 # colored man output
