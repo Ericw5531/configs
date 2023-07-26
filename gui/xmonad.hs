@@ -117,11 +117,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- lock screen
     , ((modm,               xK_F1    ), spawn "betterlockscreen -l")
 
-    -- launch rofi and dashboard
-    , ((modm,               xK_o     ), rofi_launcher)
-    , ((modm,               xK_p     ), centerlaunch)
-    , ((modm .|. shiftMask, xK_p     ), ewwclose)
-
     -- launch eww sidebar
     , ((modm,               xK_s     ), sidebarlaunch)
     , ((modm .|. shiftMask, xK_s     ), ewwclose)
@@ -334,7 +329,7 @@ myEventHook = mempty
 --
 myLogHook xmproc = dynamicLogWithPP $ xmobarPP {
       ppOutput = hPutStrLn xmproc
-    , ppTitle = xmobarColor xmobarTitleColor "" . shorten 70
+    , ppTitle = xmobarColor xmobarTitleColor "" . shorten 90
     , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
     , ppSep = "   "
   }
@@ -353,10 +348,12 @@ myStartupHook = do
   spawnOnce "exec ~/bin/eww daemon"
   spawn "xsetroot -cursor_name left_ptr"
   spawn "exec ~/bin/lock.sh"
-  spawnOnce "feh --bg-scale ~/wallpapers/yosemite-lowpoly.jpg"
+  -- spawnOnce "feh --bg-scale /wallpapers/yosemite-lowpoly.jpg"
+  spawnOnce "feh --bg-scale ~/Downloads/wallpapers/wallhaven-28wymm.jpg"
   spawnOnce "picom --experimental-backends"
   spawnOnce "greenclip daemon"
   spawnOnce "dunst"
+  spawnOnce "redshift -l 37.33939:-121.89496"
   spawnOn "web" "/usr/bin/firefox"
 
 ------------------------------------------------------------------------
