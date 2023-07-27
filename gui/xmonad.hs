@@ -101,12 +101,12 @@ addEWMHFullscreen   = do
 clipboardy :: MonadIO m => m () -- Don't question it 
 clipboardy = spawn "rofi -modi \"\63053 :greenclip print\" -show \"\63053 \" -run-command '{cmd}' -theme ~/.config/rofi/launcher/style.rasi"
 
-centerlaunch = spawn "exec ~/bin/eww open-many blur_full weather profile quote search_full incognito-icon vpn-icon home_dir screenshot power_full reboot_full lock_full logout_full suspend_full"
-sidebarlaunch = spawn "exec ~/bin/eww open-many weather_side time_side smol_calendar player_side sys_side sliders_side"
-ewwclose = spawn "exec ~/bin/eww close-all"
+-- centerlaunch = spawn "exec ~/bin/eww open-many blur_full weather profile quote search_full incognito-icon vpn-icon home_dir screenshot power_full reboot_full lock_full logout_full suspend_full"
+-- sidebarlaunch = spawn "exec ~/bin/eww open-many weather_side time_side smol_calendar player_side sys_side sliders_side"
+-- ewwclose = spawn "exec ~/bin/eww close-all"
 maimcopy = spawn "maim -s | xclip -selection clipboard -t image/png && notify-send \"Screenshot\" \"Copied to Clipboard\" -i flameshot"
 maimsave = spawn "maim -s ~/Desktop/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send \"Screenshot\" \"Saved to Desktop\" -i flameshot"
-rofi_launcher = spawn "rofi -no-lazy-grab -show drun -modi run,drun,window -theme $HOME/.config/rofi/launcher/style -drun-icon-theme \"candy-icons\" "
+-- rofi_launcher = spawn "rofi -no-lazy-grab -show drun -modi run,drun,window -theme $HOME/.config/rofi/launcher/style -drun-icon-theme \"candy-icons\" "
 
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -116,10 +116,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- lock screen
     , ((modm,               xK_F1    ), spawn "betterlockscreen -l")
-
-    -- launch eww sidebar
-    , ((modm,               xK_s     ), sidebarlaunch)
-    , ((modm .|. shiftMask, xK_s     ), ewwclose)
 
     -- Audio keys
     , ((0,                    xF86XK_AudioPlay), spawn "playerctl play-pause")
